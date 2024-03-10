@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 
-#include "AdvAuction.h"
+#include "../src/AdvAuction.h"
 
 template <typename U>
 std::ostream& operator<<(std::ostream& os, const std::vector<U> vec) {

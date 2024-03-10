@@ -15,9 +15,17 @@ int main() {
         {60, 8, {"Russia"}, 10},
         {60, 7, {"Russia"}, 11},
         {70, 7, {"USA"}, 7},
-          {100, 20, {}, 4},
+        {100, 20, {}, 4},
     };
 
+    for (const auto& banner : allBanners) {
+        cout << "Price: " << banner.price << ", Campaign ID: " << banner.campaign_id << ", Countries: ";
+        for (const auto& c : banner.countries) {
+            cout << c << " ";
+        }
+        cout << ", Internal ID: " << banner.internal_id << endl;
+    }
+    
     int numPlaces = 3;
     string country = "Russia";
 

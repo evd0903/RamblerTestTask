@@ -24,7 +24,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake -DCMAKE_CXX_STANDARD=20 -DCMAKE_CXX_STANDARD_REQUIRED=TRUE -DCMAKE_CXX_EXTENSIONS=FALSE -DCMAKE_CXX_FLAGS="-stdlib=libc++" ..
+        cmake -DCMAKE_CXX_STANDARD=20 -DCMAKE_CXX_STANDARD_REQUIRED=TRUE -DCMAKE_CXX_EXTENSIONS=FALSE
         cmake --build .
         ctest
       if: "!contains(github.event_path, 'README.md')"

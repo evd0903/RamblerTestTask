@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Build and run tests
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
+        ctest
+      if: "!contains(github.event_path, 'README.md')"

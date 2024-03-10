@@ -31,6 +31,7 @@ bool isCampaignUnique(int campaignId, const vector<Banner>& winningBanners) {
         });
 }
 
+/// Отсеивает баннеры среди кандитатов, у которых рекламная кампания уже испольуется
 vector<Banner> getUniqueAmongWinningBanners(const vector<Banner>& banners, const vector<Banner>& winningBanners) {
     vector<Banner> uniqueBanners;
 
@@ -42,6 +43,7 @@ vector<Banner> getUniqueAmongWinningBanners(const vector<Banner>& banners, const
     return uniqueBanners;
 }
 
+/// Выбирает уникальные среди баннеров с одинаковой ценой: учитываются уже выбранные баннеры и баннеры-кандитаты
 vector<Banner> getUniqueBanners(const vector<Banner>& banners, const vector<Banner>& winningBanners) {
     unordered_set<int> usedCampaignId;
     vector<Banner> uniqueAmongWinningBanners = getUniqueAmongWinningBanners(banners, winningBanners);
@@ -61,6 +63,7 @@ vector<Banner> selectWinningBanners(const vector<Banner>& banners, int numPlaces
     vector<Banner> winningBanners;
     map<int, vector<Banner>> bannersByPrice;
 
+	/// Фильтруем баннеры по стране
     auto filteredBanners = filterBannersByCountry(banners, country);
     vector<Banner> bannersVec(filteredBanners.begin(), filteredBanners.end());
 
@@ -71,6 +74,7 @@ vector<Banner> selectWinningBanners(const vector<Banner>& banners, int numPlaces
 
         vector<Banner> uniqueBanners = getUniqueBanners(bannersWithMaxPrice, winningBanners);
 
+		/// Если оставшихся слотов меньше чем доступных баннеров с одинаковой ценой, то рандомно перемешиваем их, что позволяет брать их равновероятно
         int remainingSlots = numPlaces - winningBanners.size();
         if (remainingSlots < uniqueBanners.size()) {
             random_device rd;

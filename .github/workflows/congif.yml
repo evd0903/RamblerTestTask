@@ -13,17 +13,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-
-    - name: Install CMake
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y cmake
-        sudo apt-get install g++
-
+      
     - name: Build and run tests
       run: |
         mkdir build
         cd build
-        cmake -DCMAKE_CXX_STANDARD=20 
+        cmake ..
         cmake --build .
         ctest

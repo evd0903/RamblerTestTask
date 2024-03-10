@@ -27,4 +27,3 @@ jobs:
         cmake -DCMAKE_CXX_STANDARD=20 
         cmake --build .
         ctest
-      if: "!contains(github.event_path, 'README.md')"

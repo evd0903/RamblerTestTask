@@ -1,8 +1,6 @@
 #include "AdvAuction.h"
 
 #include <unordered_set>
-#include <vector>
-#include <map>
 #include <algorithm>
 #include <ranges>
 #include <format>
@@ -14,11 +12,12 @@ using namespace std;
 auto filterBannersByCountry(const vector<Banner>& banners, const string& country) {
     return ranges::views::filter([&country](const Banner& banner) {
         return find(banner.countries.begin(), banner.countries.end(), country) != banner.countries.end() || banner.countries.empty();
-    })(banners);
+        })(banners);
 }
 
-auto groupBannersByPrice(const vector<Banner>& banners) {
+map<int, vector<Banner>> groupBannersByPrice(const vector<Banner>& banners) {
     map<int, vector<Banner>> bannersByPrice;
+
     for (const auto& banner : banners) {
         bannersByPrice[banner.price].push_back(banner);
     }
@@ -27,18 +26,18 @@ auto groupBannersByPrice(const vector<Banner>& banners) {
 
 bool isCampaignUnique(int campaignId, const vector<Banner>& winningBanners) {
     return none_of(winningBanners.cbegin(), winningBanners.cend(),
-                   [campaignId](const Banner& banner) {
-                       return banner.campaign_id == campaignId;
-                   });
+        [campaignId](const Banner& banner) {
+            return banner.campaign_id == campaignId;
+        });
 }
 
 vector<Banner> getUniqueAmongWinningBanners(const vector<Banner>& banners, const vector<Banner>& winningBanners) {
     vector<Banner> uniqueBanners;
 
     copy_if(banners.cbegin(), banners.cend(), back_inserter(uniqueBanners),
-            [&winningBanners](const Banner& banner) {
-                return isCampaignUnique(banner.campaign_id, winningBanners);
-            });
+        [&winningBanners](const Banner& banner) {
+            return isCampaignUnique(banner.campaign_id, winningBanners);
+        });
 
     return uniqueBanners;
 }
@@ -75,14 +74,14 @@ vector<Banner> selectWinningBanners(const vector<Banner>& banners, int numPlaces
         int remainingSlots = numPlaces - winningBanners.size();
         if (remainingSlots < uniqueBanners.size()) {
             random_device rd;
-            mt19937 gen {rd()};
+            mt19937 gen{ rd() };
 
             ranges::shuffle(uniqueBanners.begin(), uniqueBanners.end(), gen);
         }
 
         for (const auto& banner : uniqueBanners) {
             winningBanners.push_back(banner);
-            
+
             if (winningBanners.size() == numPlaces) {
                 break;
             }

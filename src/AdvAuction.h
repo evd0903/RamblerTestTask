@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 struct Banner {
     int price;
@@ -12,7 +13,7 @@ struct Banner {
 
 auto filterBannersByCountry(const std::vector<Banner>& banners, const std::string& country);
 
-auto groupBannersByPrice(const std::vector<Banner>& banners);
+std::map<int, std::vector<Banner>> groupBannersByPrice(const std::vector<Banner>& banners);
 
 bool isCampaignUnique(int campaignId, const std::vector<Banner>& winningBanners);
 

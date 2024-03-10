@@ -18,11 +18,16 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y g++-10 cmake
+
+    - name: Set up compilers
+      run: |
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 90
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 90
       
     - name: Build and run tests
       run: |
         mkdir build
         cd build
-        cmake -S .. -B build -DCMAKE_C_COMPILER=${{ env.CC }} -DCMAKE_CXX_COMPILER=${{ env.CXX }} -DCMAKE_CXX_STANDARD=20 -DCMAKE_CXX_STANDARD_REQUIRED=TRUE -DCMAKE_CXX_EXTENSIONS=FALSE -DCMAKE_CXX_FLAGS="-std=c++20 -stdlib=libc++"
+        cmake .. 
         cmake --build .
         ctest

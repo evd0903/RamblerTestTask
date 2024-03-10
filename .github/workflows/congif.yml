@@ -28,6 +28,6 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. 
+        cmake -S .. -B build -DCMAKE_C_COMPILER=${{ env.CC }} -DCMAKE_CXX_COMPILER=${{ env.CXX }} -DCMAKE_CXX_STANDARD=20 -DCMAKE_CXX_STANDARD_REQUIRED=TRUE -DCMAKE_CXX_EXTENSIONS=FALSE
         cmake --build .
         ctest
